@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-const PageWrap = ({children}:{children:ReactNode}) => {
+const PageWrap = ({children,mw}:{children:ReactNode,mw?:number|string}) => {
   return (
     
-    <Box borderRadius={'md'} mt={'80px'} h={'400'} bg={'white'} backdropBlur={'lg'} backdropFilter={'auto'}>
+    <Box mx={'auto'} mb={{base:6,lg:8}} maxW={mw} borderRadius={{base:'md',lg:'lg'}} mt={'90px'} minH={'400'} bg={'white'} >
 {children}
     </Box>
   )

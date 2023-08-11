@@ -53,7 +53,7 @@ function ImageDropArea({
     return (
         <section className="container">
             {/* @ts-ignore */}
-            <LinkBox
+            <Box
                 {...getRootProps({
                     className: 'dropzone',
                     h: '10rem',
@@ -81,7 +81,7 @@ function ImageDropArea({
                         JPG,PNG,GIF,SVG
                     </Text>
                 </Text>
-            </LinkBox>
+            </Box>
             <Box mb={8}>
                 <Flex gap={'0.75rem'} pt={'1rem'}>
                     {images.map((image) => (

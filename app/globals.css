@@ -1,6 +1,8 @@
 :root {
   --max-width: 1100px;
- 
+ --body-bg:#f0e9f7;
+ --gradient-bg:linear-gradient(125deg, #5f0685, #3498DB,#805AD5);
+
 }
 
 @media (prefers-color-scheme: dark) {

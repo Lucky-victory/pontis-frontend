@@ -7,11 +7,11 @@ export default function Home() {
   return (
     <>
       <Navbar/>
-      <Box inset={0} pos='fixed' minH={'600'} bgGradient={'linear(to-r,#000,brand.300)'} >
+      <Box inset={0} pos='fixed' minH={'600'} bgGradient={'linear(to-r,#000,brand.400)'} >
 <Flex wrap={'wrap'} gap={6} pt={'100px'} overflowY={'auto'}  h={'full'} bg={'whiteAlpha.400'} backdropFilter={'blur(30px)'} borderRadius={'lg'}>
 <Box maxW={600} pl={10} minW={250}  py={4} borderRadius={'md'}>
 
-<Heading py={4} className='clip-text' bgGradient={'linear(to-r,brand.400,yellow)'} bgClip={'text'}  size={'2xl'} >
+<Heading py={4} className='clip-text' bgGradient={'linear(to-r,brand.400,yellow)'} bgClip={'text'}  size={'2xl'} fontFamily={'inherit'} >
   Bridge, Swap & Mint
 </Heading>
 <Text fontSize={'4xl'} color={'white'}>

@@ -1,10 +1,14 @@
 "use client";
 import { ReactNode} from 'react'
 import { CacheProvider } from "@chakra-ui/next-js";
-import { ChakraProvider as Provider } from "@chakra-ui/react";
+import { ChakraProvider as Provider, ThemeConfig } from "@chakra-ui/react";
 import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
 
-const customTheme = extendTheme(
+const config:ThemeConfig={
+  initialColorMode:'dark',
+  useSystemColorMode:false
+}
+const customTheme = extendTheme(config,
   {
     colors: {
       brand:{
@@ -26,6 +30,7 @@ const customTheme = extendTheme(
           colorScheme: 'brand',
         },
       },
+      
     },
   },
   withDefaultColorScheme({ colorScheme: 'brand' }),

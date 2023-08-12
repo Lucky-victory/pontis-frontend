@@ -8,8 +8,8 @@ import { Box } from '@chakra-ui/react'
 const inter = Fredoka({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'X-NFT',
-  description: 'Bridge, Mint and Swap NFTS',
+  title: 'Pontis - Bridge, Mint and Swap NFTs',
+  description: 'Bridge, Mint and Swap NFTs',
 }
 
 export default function RootLayout({

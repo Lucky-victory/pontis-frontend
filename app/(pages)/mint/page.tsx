@@ -6,6 +6,10 @@ import {
   FormLabel,
   Heading,
   Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Select,
   Text,
   Textarea,
@@ -23,7 +27,7 @@ import { pushImgToStorage, putJSONandGetHash } from '@/app/lib/utils';
 import isEmpty from 'just-is-empty'
 export const metadata: Metadata = {
 
-    title:'X-NFT - Mint'
+    title:'Pontis - Mint'
 }
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -89,7 +93,7 @@ setIsValid(false)
     <>
           <Navbar />
 <PageWrap>
-<Box mx={'auto'} boxShadow={'md'} mb={{base:6,lg:8}} maxW={950} borderRadius={{base:'md',lg:'lg'}} mt={'90px'} minH={'400'} bg={'white'} >
+<Box mx={'auto'} boxShadow={'md'} mb={{base:6,lg:8}} maxW={950} borderRadius={{base:'md',lg:'lg'}} mt={'90px'} minH={'400'} bg={'blackAlpha.700'} >
 
          
           <Box
@@ -107,13 +111,13 @@ setIsValid(false)
                   onSubmit={(evt) => handleFormSubmit(evt)}
                   as={'form'}
               >
-                  <FormLabel htmlFor="image-select">
+                  <FormLabel fontSize={'lg'} htmlFor="image-select">
                       Image
                       <Text as={'span'} color={'red.500'}>
                           *
                       </Text>
                   </FormLabel>
-                  <Text fontSize={14} mb={2}>
+                  <Text fontSize={'smaller'} mb={2}>
                       Drag or choose your file to upload
                   </Text>
                   <Box minH={'180px'}>
@@ -125,7 +129,7 @@ setIsValid(false)
                           *
                       </Text>
                   </FormLabel>
-                  <Input
+                  <Input 
                       required
                       value={data.name}
                       minH={12}
@@ -134,12 +138,12 @@ setIsValid(false)
                       id="name-inp"
                       placeholder="Item name" autoComplete='off' 
                       mb={4}
-                      _focus={{ borderColor: 'purple.600' }}
-                      />
+                    //   _focus={{ borderColor: 'brand.600',outlineColor:'brand.600' }}
+                       />
                   <FormLabel mt={4} htmlFor="desc">
                       Description
                   </FormLabel>
-                  <Text fontSize={14} mb={2}>
+                  <Text fontSize={'smaller'} mb={2}>
                       The description will be included on the item's detail
                       page underneath its image.
                   </Text>
@@ -152,7 +156,7 @@ maxH={'400px'}
                       id="desc"
                       resize={'none'}
                       // _focusVisible={{ borderColor: 'teal.600' }}
-                      _focus={{ borderColor: 'purple.600' }}
+                    //   _focus={{ borderColor: 'brand.600' }}
                       />
                   <FormLabel mt={4} htmlFor="blockchain-inp">
                       BlockChain
@@ -160,12 +164,17 @@ maxH={'400px'}
                           *
                         </Text> */}
                   </FormLabel>
-
+{/* <Menu >
+    <MenuButton>Select Chain</MenuButton>
+    <MenuList>
+        <MenuItem>Polygon</MenuItem>
+    </MenuList>
+</Menu> */}
                   <Select
                       onChange={handleInputChange}
                       name="chain"
                       minH={12}
-                      _focus={{ borderColor: 'purple.700' }}
+                      _focus={{ borderColor: 'brand.700' }}
                       id="blockchain-inp" defaultValue={'0'}
                       
                       >
@@ -183,7 +192,7 @@ maxH={'400px'}
                       mt={6}
                       isDisabled={!isValid}
                       borderRadius={50}
-                      colorScheme='purple'
+                    
                       isLoading={isSubmitting}
                       loadingText='Creating your nft...'
                       //   _hover={{ bg: 'purple.300', color: 'purple.700' }}

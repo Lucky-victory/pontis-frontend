@@ -17,15 +17,15 @@ const Navbar = () => {
         <Box color={'brand.300'}>App logo</Box>
         <Flex gap={8} >
 
-{navbarLinks.map((lnk,i)=><Button key={'nav-link'+i}  pos={'relative'} px={2} _hover={{_before:{w:'60%'}}}  _before={{content:`''`,pos:'absolute',bottom:0,transition:'0.4s ease-out', left:'50%',transform:'translateX(-50%)',w:pathname===lnk.url?'60%':'0',h:'0.25em',bg:'brand.400',borderRadius:'4'}} fontWeight={'medium'} letterSpacing={'wider'} color={'white'} bg={'transparent!important'} borderRadius={'full'} colorScheme={'purple'} as={NextLink} href={lnk.url}>{lnk.title}</Button>)}
+{navbarLinks.map((lnk,i)=><Button key={'nav-link'+i}  pos={'relative'} px={2} _hover={{_before:{w:'60%'}}}  _before={{content:`''`,pos:'absolute',bottom:0,transition:'0.4s ease-out', left:'50%',transform:'translateX(-50%)',w:pathname===lnk.url?'60%':'0',h:'0.25em',bg:'brand.300',borderRadius:'4'}} fontWeight={'medium'} letterSpacing={'wider'} color={'white'} bg={'transparent!important'} borderRadius={'full'} colorScheme={'purple'} as={NextLink} href={lnk.url}  fontSize={'lg'}>{lnk.title}</Button>)}
           
             
         </Flex>
         <Box>
-          {/* <ConnectButton/> */}
+         
           <Box className='connect-btn-wrap'>
 
-            <Button  as={ConnectButton} />
+            <ConnectButton />
           </Box>
         </Box>
     </Flex>

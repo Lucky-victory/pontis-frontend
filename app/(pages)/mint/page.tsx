@@ -86,19 +86,20 @@ setIsValid(false)
   }, [data.chain,data.name,hasImage])
   
   return (
-<>
+    <>
+          <Navbar />
+<PageWrap>
 <Box mx={'auto'} boxShadow={'md'} mb={{base:6,lg:8}} maxW={950} borderRadius={{base:'md',lg:'lg'}} mt={'90px'} minH={'400'} bg={'white'} >
 
          
-          <Navbar />
           <Box
               mt={'calc(2rem + var(--navbar-height))'}
               maxW={800}
-            
+              
               mx={'auto'}
               py={8}
               px={4}
-          >
+              >
               <Heading textAlign={'center'} mt={8} mb={8}>
                   Create
               </Heading>
@@ -134,7 +135,7 @@ setIsValid(false)
                       placeholder="Item name" autoComplete='off' 
                       mb={4}
                       _focus={{ borderColor: 'purple.600' }}
-                  />
+                      />
                   <FormLabel mt={4} htmlFor="desc">
                       Description
                   </FormLabel>
@@ -152,12 +153,12 @@ maxH={'400px'}
                       resize={'none'}
                       // _focusVisible={{ borderColor: 'teal.600' }}
                       _focus={{ borderColor: 'purple.600' }}
-                  />
+                      />
                   <FormLabel mt={4} htmlFor="blockchain-inp">
                       BlockChain
                       {/* <Text as={'span'} color={'red.500'}>
                           *
-                      </Text> */}
+                        </Text> */}
                   </FormLabel>
 
                   <Select
@@ -166,8 +167,8 @@ maxH={'400px'}
                       minH={12}
                       _focus={{ borderColor: 'purple.700' }}
                       id="blockchain-inp" defaultValue={'0'}
-                    
-                  >
+                      
+                      >
                       <option value='0' disabled>
                           Select Chain
                       </option>
@@ -185,17 +186,18 @@ maxH={'400px'}
                       colorScheme='purple'
                       isLoading={isSubmitting}
                       loadingText='Creating your nft...'
-                    //   _hover={{ bg: 'purple.300', color: 'purple.700' }}
-                    //   bg={'purple.700'}
-                  >
+                      //   _hover={{ bg: 'purple.300', color: 'purple.700' }}
+                      //   bg={'purple.700'}
+                      >
                       Create
                   </Button>
               </FormControl>
           </Box>
       </Box>
           <Footer />
-    </>
+    </PageWrap>
 
+                      </>
   );
 };
 

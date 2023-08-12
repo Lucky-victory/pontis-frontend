@@ -7,23 +7,25 @@ export default function Home() {
   return (
     <>
       <Navbar/>
-      <Box inset={0} p={1} pos='fixed' minH={'600'} bg={'var(--gradient-bg)'}>
-<Flex gap={6} pt={'120px'} overflowY={'auto'}  h={'full'} bg={'whiteAlpha.400'} backdropFilter={'auto'} backdropBlur={'20px'}  borderRadius={'lg'}>
-<Box  pl={10} minW={250}>
+      <Box inset={0} pos='fixed' minH={'600'} bgGradient={'linear(to-r,#000,brand.300)'} >
+<Flex wrap={'wrap'} gap={6} pt={'100px'} overflowY={'auto'}  h={'full'} bg={'whiteAlpha.400'} backdropFilter={'blur(30px)'} borderRadius={'lg'}>
+<Box maxW={600} pl={10} minW={250}  py={4} borderRadius={'md'}>
 
-<Heading size={'2xl'} color={'white'}>
+<Heading py={4} className='clip-text' bgGradient={'linear(to-r,brand.400,yellow)'} bgClip={'text'}  size={'2xl'} >
   Bridge, Swap & Mint
 </Heading>
-<Text fontSize={'5xl'}>
-  your NFTs.
+<Text fontSize={'4xl'} color={'white'}>
+  Your NFTs.
 </Text>
-<Text maxW={600} py={4}>
+<Text fontSize={'lg'} lineHeight={'tall'}  py={4} color={'gray.200'}>
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi officia obcaecati dolor placeat dolorum non id nobis adipisci, iure, similique iusto porro consectetur distinctio sapiente ad alias veniam, iste voluptatum! Dolorum natus sint quisquam. Recusandae commodi cumque labore unde in!
 </Text>
 </Box>
 
-<Box>
-  <Image mixBlendMode={'darken'} maxW={600} alt='' src={'/images/nft.jpg'}/>
+<Box maxW={700} flex={1} pos={'relative'} >
+  <Image top={'-6'} right={'-2'} pos={'absolute'}  maxW={200} alt='' src={'/images/nft2.png'}/>
+  <Image maxW={600} alt='' src={'/images/nft1.png'}/>
+  <Image bottom={'-7'} left={'-8'}  pos={'absolute'}  maxW={200} alt='' src={'/images/nft3.png'}/>
 </Box>
 </Flex>
 </Box>

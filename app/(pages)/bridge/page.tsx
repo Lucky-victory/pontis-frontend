@@ -2,13 +2,17 @@
 'use client'
 import CollectionCards from '@/app/components/CollectionCards'
 import Navbar from '@/app/components/Navbar'
+import PageWrap from '@/app/components/PageWrap'
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const BridgePage = () => {
   return (
-    <Box>
+    <>
     <Navbar/>
+    <PageWrap>
+
+    <Box>
   <Flex  mt={'90px'}  >
     <Flex gap={6} mx={'auto'}>
 
@@ -26,6 +30,8 @@ const BridgePage = () => {
     </Flex>
   </Flex>
     </Box>
+    </PageWrap>
+    </>
   )
 }
 

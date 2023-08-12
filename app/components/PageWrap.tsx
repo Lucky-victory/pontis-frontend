@@ -3,8 +3,11 @@ import { ReactNode } from 'react'
 const PageWrap = ({children,mw,...props}:{children:ReactNode,mw?:number|string}) => {
   return (
     
-    <Box mx={'auto'} {...props} mb={{base:6,lg:8,xs:3}} maxW={mw} borderRadius={{base:'md',lg:'lg'}} mt={'90px'} minH={'400'} bg={'var(--body-bg)'} >
+    <Box inset={0} p={1} pos='fixed' minH={'600'} bgGradient={'linear(to-r,#000,brand.300)'} >
+    <Box gap={6} pt={'30px'} overflowY={'auto'}  h={'full'} bg={'whiteAlpha.400'} backdropFilter={'blur(30px)'} borderRadius={'lg'}>
+   
 {children}
+</Box>
     </Box>
   )
 }

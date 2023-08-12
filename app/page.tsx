@@ -3,25 +3,28 @@ import { Flex, Image } from "@chakra-ui/react";
 import styles from "./page.module.css";
 import Navbar from "@/app/components/Navbar";
 import { Box, Heading, Text } from "@chakra-ui/react";
+import Footer from "./components/Footer";
 export default function Home() {
   return (
     <>
       <Navbar />
       <Box
         inset={0}
-        pos="fixed"
-        minH={"600"}
+        pos="relative"
+        minH={"650"}
+        as="main"
         bgGradient={"linear(to-r,#000,brand.400)"}
       >
         <Flex
           wrap={"wrap"}
           gap={6}
           pt={"100px"}
-          overflowY={"auto"}
+          pb={6}
+          // overflowY={"auto"}
           h={"full"}
           bg={"whiteAlpha.400"}
           backdropFilter={"blur(30px)"}
-          borderRadius={"lg"}
+          
         >
           <Box maxW={600} pl={10} minW={250} py={4} borderRadius={"md"}>
             <Heading
@@ -67,6 +70,8 @@ export default function Home() {
           </Box>
         </Flex>
       </Box>
+
+      <Footer/>
     </>
   );
 }

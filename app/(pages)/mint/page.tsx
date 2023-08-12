@@ -101,7 +101,7 @@ const MintPage = () => {
           borderRadius={{ base: "md", lg: "lg" }}
           mt={"90px"}
           minH={"400"}
-          bg={"blackAlpha.700"}
+          bg={"blackAlpha.800"}
         >
           <Box
             mt={"calc(2rem + var(--navbar-height))"}
@@ -181,9 +181,9 @@ const MintPage = () => {
                 minH={12}
                 _focus={{ borderColor: "brand.700" }}
                 id="blockchain-inp"
-                defaultValue={"0"}
+                defaultValue={data.chain}
               >
-                <option value="0" disabled>
+                <option value="" disabled>
                   Select Chain
                 </option>
                 <option value={"opt 1"}>opt 1</option>
@@ -191,13 +191,14 @@ const MintPage = () => {
               </Select>
               <Button
                 type="submit"
-                color={"white"}
+              
                 size={"lg"}
                 minW={160}
                 mt={6}
                 isDisabled={!isValid}
                 borderRadius={50}
                 isLoading={isSubmitting}
+                variant={'outline'}
                 loadingText="Creating your nft..."
                 //   _hover={{ bg: 'purple.300', color: 'purple.700' }}
                 //   bg={'purple.700'}

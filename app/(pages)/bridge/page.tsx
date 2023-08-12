@@ -62,7 +62,7 @@ const BridgePage = () => {
                   </MenuList>
                 </Menu>
               </Flex>
-              <CollectionCards />
+              <CollectionCards collections={[0,1,2,3]} />
             </Box>
 
             <Box
@@ -71,7 +71,7 @@ const BridgePage = () => {
               boxShadow={"base"}
               borderRadius={"lg"}
               bg={"black"}
-              p={4}
+              maxW={450}
             >
               <Flex
                 gap={6}
@@ -98,10 +98,14 @@ const BridgePage = () => {
                     Chain
                   </MenuButton>
                   <MenuList>
-                    <MenuItem name="departure-chain"> Polygon</MenuItem>
+                    <MenuItem name="destination-chain"> Polygon</MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>
+              <Box 
+              p={4}
+              >
+
               <Stack my={4} minH={200} rounded={"lg"}>
                 <Flex
                   justify={"space-between"}
@@ -158,6 +162,8 @@ const BridgePage = () => {
                 </Button>
               </Flex>
             </Box>
+            </Box>
+
           </Flex>
         </Box>
       </PageWrap>

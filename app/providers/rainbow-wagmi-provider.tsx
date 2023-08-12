@@ -9,7 +9,7 @@ import {
   mainnet,
   optimism,
   polygon,
-  zora,
+  zora,base,polygonMumbai
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -19,14 +19,14 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     polygon,
     optimism,
     arbitrum,
-    zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
+    zora,base,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli,polygonMumbai] : []),
   ],
   [publicProvider()],
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "X-NFT",
+  appName: "Pontis",
   projectId:
     process.env.NEXT_PUBLIC_PROJECT_ID || "f69945d89a7a2ba608de15c6c66c9e00",
   chains,

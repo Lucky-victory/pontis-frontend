@@ -13,8 +13,11 @@ export const bridgeCollectionSlice = createSlice({
     addCollection(state,action) {
         state.data=[...state.data,action.payload]
     },
+    removeCollection(state,action) {
+        state.data=[...state.data.filter((d)=>d!==action.payload)]
+    },
   },
 });
 
-export const { addCollection } = bridgeCollectionSlice.actions;
+export const { addCollection,removeCollection } = bridgeCollectionSlice.actions;
 export default bridgeCollectionSlice.reducer;

@@ -2,6 +2,7 @@
 import CollectionCards from "@/app/components/CollectionCards";
 import Navbar from "@/app/components/Navbar";
 import PageWrap from "@/app/components/PageWrap";
+import { RootState } from "@/app/state/store";
 import {
   Box,
   Button,
@@ -17,8 +18,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MdDeleteOutline } from "react-icons/md";
-
+import { useSelector} from 'react-redux'
 const BridgePage = () => {
+
+  const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
+  
   return (
     <>
       <Navbar />
@@ -107,8 +111,10 @@ const BridgePage = () => {
               >
 
               <Stack my={4} minH={200} rounded={"lg"}>
-                <Flex
-                  justify={"space-between"}
+                {selectedCollections.map((coll)=>{
+                  
+              return  <Flex key={crypto.randomUUID()}
+                justify={"space-between"}
                   align={"center"}
                   p={3}
                   rounded={"xl"}
@@ -119,7 +125,7 @@ const BridgePage = () => {
                     overflow={"hidden"}
                     textOverflow={"ellipsis"}
                   >
-                    My nft name name name neame name name anem
+                   collection {coll}
                   </Text>
                   <IconButton
                     variant={"ghost"}
@@ -127,6 +133,7 @@ const BridgePage = () => {
                     aria-label="delete"
                   />
                 </Flex>
+              })}
                 <Flex
                   justify={"space-between"}
                   align={"center"}

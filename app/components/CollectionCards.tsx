@@ -11,8 +11,8 @@ const CollectionCards = ({collections=[0,1,2,3]}:{collections:any}) => {
 <Text textAlign={'center'} fontSize={'3xl'}>You Don't have any NFTs yet</Text>
         </Box>
     :
-        collections.map((collection:any) => (
-            <CollectionCard collection={collection} />
+        collections.map((collection:any,i:number) => (
+            <CollectionCard collection={collection} key={'collection-'+i}/>
             ))}
         
     </Flex>

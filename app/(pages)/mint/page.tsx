@@ -12,7 +12,7 @@ import {
   MenuList,
   Select,
   Text,
-  Textarea,
+  Textarea,useToast
 } from "@chakra-ui/react";
 import Navbar from "@/app/components/Navbar";
 import ImageDropArea from "@/app/components/ImageDropArea";
@@ -39,6 +39,7 @@ const MintPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const toast=useToast({duration:3000,position:'top'})
   const initialData = {
     image: "",
     name: "",
@@ -63,8 +64,9 @@ const MintPage = () => {
 
       const cid = await putJSONandGetHash(newData);
       console.log({ details: cid });
-      setIsSubmitting(false);
       setData(initialData);
+      setIsSubmitting(false);
+      toast({me})
     } catch (error) {
       setIsSubmitting(false);
       console.log("error", error);

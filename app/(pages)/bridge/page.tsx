@@ -138,24 +138,19 @@ const BridgePage = () => {
                 <Flex
                   justify={"space-between"}
                   align={"center"}
-                  p={3}
+                  px={3}
+                  py={6}
                   rounded={"xl"}
-                  bg={"gray.800"}
+                  bg={"gray.500"}
                 >
-                  <Text
-                    whiteSpace={"nowrap"}
-                    overflow={"hidden"}
-                    textOverflow={"ellipsis"}
-                  >
-                    My nft name name name neame name name anem
-                  </Text>
-                  <IconButton
-                    variant={"ghost"}
-                    icon={<MdDeleteOutline />}
-                    aria-label="delete"
-                  />
-                </Flex>
               </Stack>
+                  <Text color={'gray.300'}
+fontSize={'xl'}
+                  >
+                    No selected collections
+                  </Text>
+                 
+                </Flex>
               <Flex w={"full"}>
                 <Button
                   w={"full"}

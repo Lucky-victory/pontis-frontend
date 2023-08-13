@@ -6,10 +6,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Select,
   Text,
   Textarea,useToast
@@ -17,16 +13,12 @@ import {
 import Navbar from "@/app/components/Navbar";
 import ImageDropArea from "@/app/components/ImageDropArea";
 import Footer from "@/app/components/Footer";
-import { Web3Storage } from "web3.storage";
 import {
   ChangeEvent,
-  ChangeEventHandler,
   FormEvent,
   useState,
   useEffect,
 } from "react";
-import Head from "next/head";
-import type { Metadata } from "next";
 import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 

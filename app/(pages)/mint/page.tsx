@@ -18,6 +18,7 @@ import {
   FormEvent,
   useState,
   useEffect,
+  MouseEvent,
 } from "react";
 import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
@@ -31,6 +32,7 @@ const MintPage = () => {
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const toast=useToast({duration:3000,position:'top'})
+
   const initialData = {
     image: "",
     name: "",
@@ -65,11 +67,13 @@ const MintPage = () => {
   }
   function handleInputChange(
     evt: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+      HTMLInputElement | HTMLTextAreaElement
+    >| MouseEvent<HTMLButtonElement>,
   ) {
     const target = evt.target;
+    //@ts-ignore
     const { name, value } = target;
+
     setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
     console.log(data);
   }
@@ -163,16 +167,16 @@ const MintPage = () => {
                         </Text> */}
               </FormLabel>
               <Menu >
-    <MenuButton w={'full'}>Select Chain</MenuButton>
+    <MenuButton w={'full'} px={3} border={'1px'} borderColor='gray.800' borderRadius={'base'}>Select Chain</MenuButton>
     <MenuList>
       {chains.map((c)=>
       
-        <MenuItem name="chain" value={c?.id}>{c?.name}</MenuItem>
+        <MenuItem onClick={handleInputChange} name="chain" value={c?.id}>{c?.name}</MenuItem>
       )}
         
     </MenuList>
 </Menu>
-              <Select
+              {/*<Select
                 onChange={handleInputChange}
                 name="chain"
                 minH={12}
@@ -185,7 +189,7 @@ const MintPage = () => {
                 </option>
                 <option value={"opt 1"}>opt 1</option>
                 <option value={"opt 2"}>opt 2</option>
-              </Select>
+              </Select>*/}
               <Button
                 type="submit"
               
@@ -210,5 +214,6 @@ const MintPage = () => {
     </>
   );
 };
+
 
 export default MintPage;

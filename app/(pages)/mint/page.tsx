@@ -8,7 +8,7 @@ import {
   Input,
   Select,
   Text,
-  Textarea,useToast
+  Textarea,useToast,Menu,MenuItem,MenuButton,MenuList
 } from "@chakra-ui/react";
 import Navbar from "@/app/components/Navbar";
 import ImageDropArea from "@/app/components/ImageDropArea";
@@ -23,6 +23,7 @@ import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
+import { useNetwork } from "wagmi";
 
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -37,7 +38,7 @@ const MintPage = () => {
     chain: "",
   };
   const [data, setData] = useState(initialData);
-
+  const { chain,chains } = useNetwork();
   const onUploadChange = (hasImage: boolean, files: File[]) => {
     setHasImage(hasImage);
     setFiles(files);
@@ -56,7 +57,7 @@ const MintPage = () => {
       console.log({ details: cid });
       setData(initialData);
       setIsSubmitting(false);
-      toast({me})
+      // toast({})
     } catch (error) {
       setIsSubmitting(false);
       console.log("error", error);
@@ -69,7 +70,7 @@ const MintPage = () => {
   ) {
     const target = evt.target;
     const { name, value } = target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
     console.log(data);
   }
 
@@ -161,12 +162,16 @@ const MintPage = () => {
                           *
                         </Text> */}
               </FormLabel>
-              {/* <Menu >
-    <MenuButton>Select Chain</MenuButton>
+              <Menu >
+    <MenuButton w={'full'}>Select Chain</MenuButton>
     <MenuList>
-        <MenuItem>Polygon</MenuItem>
+      {chains.map((c)=>
+      
+        <MenuItem name="chain" value={c?.id}>{c?.name}</MenuItem>
+      )}
+        
     </MenuList>
-</Menu> */}
+</Menu>
               <Select
                 onChange={handleInputChange}
                 name="chain"

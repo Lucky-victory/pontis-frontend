@@ -19,15 +19,25 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useChainModal } from "@rainbow-me/rainbowkit";
 import isEmpty from "just-is-empty";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector} from 'react-redux'
+import { useAccount, useNetwork,useSwitchNetwork } from "wagmi";
+
+
+
 const BridgePage = () => {
+  const { openChainModal } = useChainModal();
+  const { chain,chains } = useNetwork();
+  const { address,isConnected } = useAccount();
+  
 const dispatch=useDispatch()
   const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
-  const handleCollectionDelete=(collection:any)=>{
-dispatch(removeCollection(collection))
+  const handleOpenChainModal=(collection:any)=>{
   }
+  console.log({address,isConnected,chains,chain});
+  
   return (
     <>
       <Navbar />

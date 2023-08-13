@@ -8,7 +8,7 @@ import {
   Input,
   Select,
   Text,
-  Textarea,useToast
+  Textarea,useToast,Menu,MenuItem,MenuButton,MenuList
 } from "@chakra-ui/react";
 import Navbar from "@/app/components/Navbar";
 import ImageDropArea from "@/app/components/ImageDropArea";
@@ -18,11 +18,13 @@ import {
   FormEvent,
   useState,
   useEffect,
+  MouseEvent,
 } from "react";
 import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
+import { useNetwork } from "wagmi";
 
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -30,6 +32,7 @@ const MintPage = () => {
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const toast=useToast({duration:3000,position:'top'})
+
   const initialData = {
     image: "",
     name: "",
@@ -37,7 +40,7 @@ const MintPage = () => {
     chain: "",
   };
   const [data, setData] = useState(initialData);
-
+  const { chain,chains } = useNetwork();
   const onUploadChange = (hasImage: boolean, files: File[]) => {
     setHasImage(hasImage);
     setFiles(files);
@@ -56,7 +59,7 @@ const MintPage = () => {
       console.log({ details: cid });
       setData(initialData);
       setIsSubmitting(false);
-      toast({me})
+      // toast({})
     } catch (error) {
       setIsSubmitting(false);
       console.log("error", error);
@@ -64,12 +67,14 @@ const MintPage = () => {
   }
   function handleInputChange(
     evt: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+      HTMLInputElement | HTMLTextAreaElement
+    >| MouseEvent<HTMLButtonElement>,
   ) {
     const target = evt.target;
+    //@ts-ignore
     const { name, value } = target;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+    setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
     console.log(data);
   }
 
@@ -161,13 +166,17 @@ const MintPage = () => {
                           *
                         </Text> */}
               </FormLabel>
-              {/* <Menu >
-    <MenuButton>Select Chain</MenuButton>
+              <Menu >
+    <MenuButton w={'full'} px={3} border={'1px'} borderColor='gray.800' borderRadius={'base'}>Select Chain</MenuButton>
     <MenuList>
-        <MenuItem>Polygon</MenuItem>
+      {chains.map((c)=>
+      
+        <MenuItem onClick={handleInputChange} name="chain" value={c?.id}>{c?.name}</MenuItem>
+      )}
+        
     </MenuList>
-</Menu> */}
-              <Select
+</Menu>
+              {/*<Select
                 onChange={handleInputChange}
                 name="chain"
                 minH={12}
@@ -180,7 +189,7 @@ const MintPage = () => {
                 </option>
                 <option value={"opt 1"}>opt 1</option>
                 <option value={"opt 2"}>opt 2</option>
-              </Select>
+              </Select>*/}
               <Button
                 type="submit"
               
@@ -205,5 +214,6 @@ const MintPage = () => {
     </>
   );
 };
+
 
 export default MintPage;

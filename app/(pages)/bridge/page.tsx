@@ -3,6 +3,7 @@ import CollectionCards from "@/app/components/CollectionCards";
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import PageWrap from "@/app/components/PageWrap";
+import { removeCollection } from "@/app/state/slices";
 import { RootState } from "@/app/state/store";
 import {
   Box,
@@ -18,11 +19,24 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useChainModal } from "@rainbow-me/rainbowkit";
+import isEmpty from "just-is-empty";
 import { MdDeleteOutline } from "react-icons/md";
-import { useSelector} from 'react-redux'
-const BridgePage = () => {
+import { useDispatch, useSelector} from 'react-redux'
+import { useAccount, useNetwork,useSwitchNetwork } from "wagmi";
 
+
+
+const BridgePage = () => {
+  const { openChainModal } = useChainModal();
+  const { chain,chains } = useNetwork();
+  const { address,isConnected } = useAccount();
+  
+const dispatch=useDispatch()
   const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
+  const handleOpenChainModal=(collection:any)=>{
+  }
+  console.log({address,isConnected,chains,chain});
   
   return (
     <>
@@ -110,7 +124,7 @@ const BridgePage = () => {
               <Box 
               p={4}
               >
-
+{!isEmpty(selectedCollections) ?
               <Stack my={4} minH={200} rounded={"lg"}>
                 {selectedCollections.map((coll)=>{
                   
@@ -128,29 +142,34 @@ const BridgePage = () => {
                   >
                    collection {coll}
                   </Text>
-                  <IconButton
+                  {/* <IconButton onClick={()=>handleCollectionDelete(coll)}
                     variant={"ghost"}
                     icon={<MdDeleteOutline />}
                     aria-label="delete"
-                  />
+                  /> */}
                 </Flex>
               })}
-                <Flex
-                  justify={"space-between"}
-                  align={"center"}
-                  px={3}
-                  py={6}
-                  rounded={"xl"}
-                  bg={"gray.500"}
-                >
-                  <Text color={'gray.300'}
+               
+                    </Stack>
+              :
+              <Flex
+              justify={"center"}
+              align={"center"}
+              px={3}
+              py={6}
+              minH={200}
+              my={4}
+              rounded={"xl"}
+              bg={"gray.800"}
+            >
+              <Text color={'gray.400'} textAlign={'center'}
 fontSize={'xl'}
 >
-                    No selected collections
-                  </Text>
-                 
-                </Flex>
-                    </Stack>
+                No selected collections
+              </Text>
+             
+            </Flex>
+              }
               <Flex w={"full"}>
                 <Button
                   w={"full"}

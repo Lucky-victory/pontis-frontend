@@ -143,14 +143,14 @@ const BridgePage = () => {
                   rounded={"xl"}
                   bg={"gray.500"}
                 >
-              </Stack>
                   <Text color={'gray.300'}
 fontSize={'xl'}
-                  >
+>
                     No selected collections
                   </Text>
                  
                 </Flex>
+                    </Stack>
               <Flex w={"full"}>
                 <Button
                   w={"full"}

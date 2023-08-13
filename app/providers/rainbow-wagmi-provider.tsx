@@ -1,6 +1,6 @@
 "use client";
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { getDefaultWallets, RainbowKitProvider,lightTheme } from "@rainbow-me/rainbowkit";
 import { ReactNode, useState, useEffect } from "react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -44,7 +44,10 @@ function RainbowWagmiProvider({ children }: { children: ReactNode }) {
   useEffect(() => setMounted(true), []);
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} 
+       theme={lightTheme({
+        ...lightTheme.accentColors.orange,
+      })}>
         {mounted && children}
       </RainbowKitProvider>
     </WagmiConfig>

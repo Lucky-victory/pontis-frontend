@@ -31,9 +31,7 @@ import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
-export const metadata: Metadata = {
-  title: "Pontis - Mint",
-};
+
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -210,8 +208,8 @@ const MintPage = () => {
             </FormControl>
           </Box>
         </Box>
-        <Footer />
       </PageWrap>
+        <Footer />
     </>
   );
 };

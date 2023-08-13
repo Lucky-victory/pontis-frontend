@@ -9,8 +9,8 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 const customTheme = extendTheme(
-  config,
   {
+    config,
     colors: {
       brand: {
         50: "#ffecdf",

@@ -22,11 +22,12 @@ export default function Home() {
           pb={6}
           // overflowY={"auto"}
           h={"full"}
+          // minH={'full'}
           bg={"whiteAlpha.400"}
           backdropFilter={"blur(30px)"}
           
         >
-          <Box maxW={600} pl={10} minW={250} py={4} borderRadius={"md"}>
+          <Box maxW={600} pl={{lg:10,base:6,sm:4}} pr={{lg:6,base:4}} minW={250} py={4} borderRadius={"md"}>
             <Heading
               py={4}
               className="clip-text"
@@ -49,21 +50,21 @@ export default function Home() {
             </Text>
           </Box>
 
-          <Box maxW={700} flex={1} pos={"relative"}>
-            <Image
+          <Box maxW={700} flex={1} pos={"relative"} minW={300}>
+            <Image  hideBelow={'md'}
               top={"-6"}
               right={"-2"}
               pos={"absolute"}
-              maxW={200}
+              maxW={{lg:180,base:120}}
               alt=""
               src={"/images/nft2.png"}
             />
-            <Image maxW={600} alt="" src={"/images/nft1.png"} />
-            <Image
+            <Image maxW={600} w={'full'} alt="" src={"/images/nft1.png"} />
+            <Image hideBelow={'md'}
               bottom={"-7"}
               left={"-8"}
               pos={"absolute"}
-              maxW={200}
+              maxW={{lg:180,base:120}}
               alt=""
               src={"/images/nft3.png"}
             />

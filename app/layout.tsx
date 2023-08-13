@@ -1,10 +1,9 @@
-"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Fredoka } from "next/font/google";
+import { Fredoka } from "next/font/google";
 import { ChakraProvider } from "./providers/chakra-provider";
 import RainbowWagmiProvider from "./providers/rainbow-wagmi-provider";
-import { Box } from "@chakra-ui/react";
 import { ReduxProvider } from "./providers/redux-provider";
 const inter = Fredoka({ subsets: ["latin"] });
 
@@ -21,14 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Box as="main" px={{ base: 4, lg: 6 }}>
+        
           <ReduxProvider>
 
           <RainbowWagmiProvider>
             <ChakraProvider>{children}</ChakraProvider>
           </RainbowWagmiProvider>
           </ReduxProvider>
-        </Box>
+        
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 "use client";
 import CollectionCards from "@/app/components/CollectionCards";
+import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import PageWrap from "@/app/components/PageWrap";
 import { RootState } from "@/app/state/store";
@@ -174,6 +175,7 @@ const BridgePage = () => {
           </Flex>
         </Box>
       </PageWrap>
+      <Footer/>
     </>
   );
 };

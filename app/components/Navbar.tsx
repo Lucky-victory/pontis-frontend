@@ -1,4 +1,4 @@
-import { Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Box, Button, Image } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -32,7 +32,7 @@ const Navbar = () => {
       px={{ base: 4, lg: "7" }}
       py={4}
     >
-      <Box color={"brand.300"}>App logo</Box>
+      <Box color={"brand.300"}><Image src={'/logo.svg'} alt="logo" maxW={'90'}/></Box>
       <Flex gap={8}>
         {navbarLinks.map((lnk, i) => (
           <Button

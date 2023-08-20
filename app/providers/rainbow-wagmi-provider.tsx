@@ -1,6 +1,6 @@
 "use client";
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { getDefaultWallets, RainbowKitProvider,darkTheme } from "@rainbow-me/rainbowkit";
 import { ReactNode, useState, useEffect } from "react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -20,7 +20,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     optimism,
     arbitrum,
     zora,base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli,polygonMumbai] : []),
+    ...([goerli,polygonMumbai]),
   ],
   [publicProvider()],
 );
@@ -44,7 +44,7 @@ function RainbowWagmiProvider({ children }: { children: ReactNode }) {
   useEffect(() => setMounted(true), []);
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={darkTheme({accentColor:darkTheme.accentColors.orange.accentColor})}>
         {mounted && children}
       </RainbowKitProvider>
     </WagmiConfig>

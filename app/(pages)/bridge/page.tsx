@@ -8,9 +8,11 @@ import {
   Box,
   Button,
   Flex,
+  FormLabel,
   HStack,
   Heading,
   IconButton,
+  Input,
   Menu,
   MenuButton,
   MenuItem,
@@ -18,6 +20,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import isEmpty from "just-is-empty";
 import { MdDeleteOutline } from "react-icons/md";
 import { useSelector} from 'react-redux'
 const BridgePage = () => {
@@ -112,7 +115,17 @@ const BridgePage = () => {
               >
 
               <Stack my={4} minH={200} rounded={"lg"}>
-                {selectedCollections.map((coll)=>{
+                <Box mb={6}>
+                  <FormLabel htmlFor='dest-addr'>Enter Destination Address:</FormLabel>
+                  <Input id='dest-adr' border={"1px"}
+                    // fontWeight={"medium"}
+                    borderColor={"gray.500"}
+                    borderRadius={"full"}
+                    minW={"120px"}
+                    px={6}
+                    py={2} placeholder="Destination Address" />
+                </Box>
+                {!isEmpty(selectedCollections) ? selectedCollections.map((coll)=>{
                   
               return  <Flex key={crypto.randomUUID()}
                 justify={"space-between"}
@@ -128,20 +141,21 @@ const BridgePage = () => {
                   >
                    collection {coll}
                   </Text>
-                  <IconButton
+                  {/* <IconButton
                     variant={"ghost"}
                     icon={<MdDeleteOutline />}
                     aria-label="delete"
-                  />
+                  /> */}
                 </Flex>
-              })}
+              }) :
+              
                 <Flex
-                  justify={"space-between"}
-                  align={"center"}
-                  px={3}
+                justify={"space-between"}
+                align={"center"}
+                px={3}
                   py={6}
                   rounded={"xl"}
-                  bg={"gray.500"}
+                  bg={"gray.800"}
                 >
                   <Text color={'gray.300'}
 fontSize={'xl'}
@@ -150,6 +164,7 @@ fontSize={'xl'}
                   </Text>
                  
                 </Flex>
+              }
                     </Stack>
               <Flex w={"full"}>
                 <Button
@@ -161,7 +176,7 @@ fontSize={'xl'}
                   variant={"outline"}
                   letterSpacing={"widest"}
                 >
-                  Continue Bridge
+                  Continue Bridging
                 </Button>
               </Flex>
             </Box>

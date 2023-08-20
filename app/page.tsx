@@ -71,7 +71,9 @@ export default function Home() {
           </Box>
         </Flex>
       </Box>
+<Box minH={600} my={4}>
 
+</Box>
       <Footer/>
     </>
   );

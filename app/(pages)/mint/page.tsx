@@ -71,7 +71,9 @@ const MintPage = () => {
     >,
   ) {
     const target = evt.target;
+    //@ts-ignore
     const { name, value } = target;
+
     setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
     console.log(data);
   }
@@ -214,5 +216,6 @@ setSelectedChainName(chain?.name);
     </>
   );
 };
+
 
 export default MintPage;

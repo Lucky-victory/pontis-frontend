@@ -18,27 +18,29 @@ import {
   FormEvent,
   useState,
   useEffect,
+  MouseEvent,
 } from "react";
 import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
-import { useNetwork } from "wagmi";
+import { Chain, useNetwork } from "wagmi";
 
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
+  const [selectedChainName,setSelectedChainName]=useState('');
+  const { chain,chains } = useNetwork();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const toast=useToast({duration:3000,position:'top'})
-  const initialData = {
+  const initialData:{chainId:number|null;image:string;name:string;description?:string} = {
     image: "",
     name: "",
     description: "",
-    chain: "",
+    chainId: null,
   };
   const [data, setData] = useState(initialData);
-  const { chain,chains } = useNetwork();
   const onUploadChange = (hasImage: boolean, files: File[]) => {
     setHasImage(hasImage);
     setFiles(files);
@@ -65,7 +67,7 @@ const MintPage = () => {
   }
   function handleInputChange(
     evt: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLInputElement | HTMLTextAreaElement
     >,
   ) {
     const target = evt.target;
@@ -73,14 +75,19 @@ const MintPage = () => {
     setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
     console.log(data);
   }
-
+const handleSelectedChain=(evt:MouseEvent<HTMLButtonElement>,chain:Chain)=>{
+setSelectedChainName(chain?.name);
+  const target = evt.target as HTMLButtonElement;
+    const { value } = target;
+  setData((prev) => ({ ...prev, chainId:+value }));
+}
   useEffect(() => {
-    if (isEmpty(data["chain"]) || isEmpty(data["name"]) || !hasImage) {
+    if (isEmpty(data["chainId"]) || isEmpty(data["name"]) || !hasImage) {
       setIsValid(false);
     } else {
       setIsValid(true);
     }
-  }, [data.chain, data.name, hasImage]);
+  }, [data.chainId, data.name, hasImage]);
 
   return (
     <>
@@ -162,30 +169,27 @@ const MintPage = () => {
                           *
                         </Text> */}
               </FormLabel>
+<Box >
+
               <Menu >
-    <MenuButton w={'full'}>Select Chain</MenuButton>
+    <MenuButton type="button" id="blockchain-inp"  py={3} border={"1px"} name="chain"
+                    // fontWeight={"medium"}
+                    borderColor={"gray.700"}
+                    borderRadius={"md"}
+                    minW={"180px"}
+                    my={4}
+                    display={'inline-block'}
+                    px={6}>{selectedChainName || 'Select Chain'}</MenuButton>
     <MenuList>
-      {chains.map((c)=>
+      {chains.map((c,i)=>
       
-        <MenuItem name="chain" value={c?.id}>{c?.name}</MenuItem>
+        <MenuItem key={'chain'+i} onClick={(evt)=>handleSelectedChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
       )}
         
     </MenuList>
 </Menu>
-              <Select
-                onChange={handleInputChange}
-                name="chain"
-                minH={12}
-                _focus={{ borderColor: "brand.700" }}
-                id="blockchain-inp"
-                defaultValue={data.chain}
-              >
-                <option value="" disabled>
-                  Select Chain
-                </option>
-                <option value={"opt 1"}>opt 1</option>
-                <option value={"opt 2"}>opt 2</option>
-              </Select>
+</Box>
+            
               <Button
                 type="submit"
               

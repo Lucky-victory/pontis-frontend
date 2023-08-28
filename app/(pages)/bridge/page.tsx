@@ -23,9 +23,10 @@ import {
 } from "@chakra-ui/react";
 import { useChainModal } from "@rainbow-me/rainbowkit";
 import isEmpty from "just-is-empty";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector} from 'react-redux'
-import { useAccount, useNetwork,useSwitchNetwork } from "wagmi";
+import { Chain, useAccount, useNetwork,useSwitchNetwork } from "wagmi";
 
 
 
@@ -33,13 +34,32 @@ const BridgePage = () => {
   const { openChainModal } = useChainModal();
   const { chain,chains } = useNetwork();
   const { address,isConnected } = useAccount();
-  
+  const [departureData,setDepartureData]=useState({})
+  const [destinationData,setDestinationData]=useState({})
+  const [selectedDestinationChain,setSelectedDestinationChain]=useState(chain?.name);
+  const [selectedDepartureChain,setSelectedDepartureChain]=useState(chain?.name);
+
 const dispatch=useDispatch()
   const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
   const handleOpenChainModal=(collection:any)=>{
+    openChainModal && openChainModal()
   }
   console.log({address,isConnected,chains,chain});
-  
+  const handleDestinationAddressChange=(evt:ChangeEvent<HTMLInputElement>)=>{
+
+  }
+  const handleSelectedDepartureChain=(evt:MouseEvent<HTMLButtonElement>,chain:Chain)=>{
+    setSelectedDepartureChain(chain?.name);
+      const target = evt.target as HTMLButtonElement;
+        const { value } = target;
+      // setData((prev) => ({ ...prev, chainId:+value }));
+    }
+  const handleSelectedDestinationChain=(evt:MouseEvent<HTMLButtonElement>,chain:Chain)=>{
+    setSelectedDestinationChain(chain?.name);
+      const target = evt.target as HTMLButtonElement;
+        const { value } = target;
+      // setData((prev) => ({ ...prev, chainId:+value }));
+    }
   return (
     <>
       <Navbar />
@@ -65,30 +85,33 @@ const dispatch=useDispatch()
                 <Text fontSize={"xl"} as="strong" letterSpacing={"wider"}>
                   Your NFTs on{" "}
                 </Text>
-                <Menu>
-                  <MenuButton
-                    border={"1px"}
+               
+
+              <Menu >
+    <MenuButton  border={"1px"}
                     fontWeight={"medium"}
                     borderColor={"gray.500"}
                     borderRadius={"full"}
                     minW={"120px"}
                     px={6}
                     py={2}
-                    bg={"gray.800"}
-                  >
-                    Chain
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem name="departure-chain"> Polygon</MenuItem>
-                  </MenuList>
-                </Menu>
+                    bg={"gray.800"} 
+                  >{selectedDepartureChain || 'Select Chain'}</MenuButton>
+    <MenuList>
+      {chains.map((c,i)=>
+      
+        <MenuItem key={'d-chain'+i} onClick={(evt)=>handleSelectedDepartureChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
+      )}
+        
+    </MenuList>
+</Menu>
               </Flex>
               <CollectionCards collections={[0,1,2,3]} />
             </Box>
 
             <Box
               flex={1}
-              minW={280}
+              minW={350}
               boxShadow={"base"}
               borderRadius={"lg"}
               bg={"black"}
@@ -102,31 +125,32 @@ const dispatch=useDispatch()
                 mb={4}
                 align={"center"}
               >
-                <Text fontSize={"xl"} as="strong" letterSpacing={"wider"}>
+                <Text fontSize={"lg"} as="strong" letterSpacing={"wider"}>
                   Destination Chain{" "}
                 </Text>
-                <Menu>
-                  <MenuButton
-                    border={"1px"}
+                <Menu >
+    <MenuButton  border={"1px"}
                     fontWeight={"medium"}
                     borderColor={"gray.500"}
                     borderRadius={"full"}
                     minW={"120px"}
                     px={6}
                     py={2}
-                    bg={"gray.800"}
-                  >
-                    Chain
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem name="destination-chain"> Polygon</MenuItem>
-                  </MenuList>
-                </Menu>
+                    bg={"gray.800"} 
+                  >{selectedDestinationChain || 'Chain'}</MenuButton>
+    <MenuList>
+      {chains.map((c,i)=>
+      
+        <MenuItem key={'destination-chain'+i} onClick={(evt)=>handleSelectedDestinationChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
+      )}
+        
+    </MenuList>
+</Menu>
               </Flex>
               <Box 
               p={4}
               >
-{!isEmpty(selectedCollections) ?
+
               <Stack my={4} minH={200} rounded={"lg"}>
                 <Box mb={6}>
                   <FormLabel htmlFor='dest-addr'>Enter Destination Address:</FormLabel>
@@ -135,7 +159,7 @@ const dispatch=useDispatch()
                     borderColor={"gray.500"}
                     borderRadius={"full"}
                     minW={"120px"}
-                    px={6}
+                    px={6} onChange={handleDestinationAddressChange}
                     py={2} placeholder="Destination Address" />
                 </Box>
                 {!isEmpty(selectedCollections) ? selectedCollections.map((coll)=>{

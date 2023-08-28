@@ -71,9 +71,12 @@ export default function Home() {
           </Box>
         </Flex>
       </Box>
-<Box minH={600} my={4}>
+      <Box px={4} my={8}>
+
+<Box minH={600} borderRadius={'lg'} bg={'black'} >
 
 </Box>
+      </Box>
       <Footer/>
     </>
   );

@@ -25,13 +25,13 @@ if(_isChecked){
       onClickCapture={() => handleCheck(collection)}
       cursor={"pointer"}
       border={"4px"}
-      borderColor={isChecked ? "brand.700" : "transparent"}
+      borderColor={isChecked ? "brand.600" : "transparent"}
       pos={"relative"}
       direction={"column"}
       p={3}
       boxShadow={"md"}
       borderRadius={"2xl"}
-      bg={"brand.900"}
+      bg={"black"}
     >
       <Checkbox
         onChange={() => handleCheck(collection)}

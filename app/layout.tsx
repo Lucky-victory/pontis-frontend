@@ -5,7 +5,7 @@ import { Fredoka } from "next/font/google";
 import { ChakraProvider } from "./providers/chakra-provider";
 import RainbowWagmiProvider from "./providers/rainbow-wagmi-provider";
 import { ReduxProvider } from "./providers/redux-provider";
-const inter = Fredoka({ subsets: ["latin"] });
+const fredoka = Fredoka({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pontis - Bridge, Mint and Swap NFTs",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={fredoka.className}>
         
           <ReduxProvider>
 

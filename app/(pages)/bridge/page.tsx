@@ -2,6 +2,7 @@
 import CollectionCards from "@/app/components/CollectionCards";
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import NotConnected from "@/app/components/NotConnected";
 import PageWrap from "@/app/components/PageWrap";
 import { removeCollection } from "@/app/state/slices";
 import { RootState } from "@/app/state/store";
@@ -26,7 +27,7 @@ import isEmpty from "just-is-empty";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector} from 'react-redux'
-import { Chain, useAccount, useNetwork,useSwitchNetwork } from "wagmi";
+import { Chain, useAccount, useConnect, useNetwork,useSwitchNetwork } from "wagmi";
 
 
 
@@ -63,6 +64,8 @@ const dispatch=useDispatch()
   return (
     <>
       <Navbar />
+    <NotConnected isConnected={isConnected}>
+
       <PageWrap>
         <Box mx={"auto"} mt={"90px"} maxW={"1350px"} mb={6}>
           <Flex px={{ base: 4, lg: 6 }} wrap={"wrap"} gap={6} mx={"auto"}>
@@ -223,6 +226,8 @@ fontSize={'xl'}
         </Box>
       </PageWrap>
       <Footer/>
+    </NotConnected>
+
     </>
   );
 };

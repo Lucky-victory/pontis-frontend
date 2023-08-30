@@ -3,6 +3,8 @@ import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useEffect, useState } from "react";
+import { useDebouncedFunction } from "../lib/hooks";
 const navbarLinks = [
   {
     title: "Home",
@@ -17,14 +19,25 @@ const navbarLinks = [
 ];
 const Navbar = () => {
   const pathname = usePathname();
+const [scrollY,setScrollY]=useState(0);
+  const handleScroll=()=>{
+const _scrollY=window.scrollY;
 
+setScrollY(_scrollY)
+  }
+  const debounceScroll=useDebouncedFunction(handleScroll);
+useEffect(()=>{
+window.addEventListener('scroll',debounceScroll);
+  return ()=>window.removeEventListener('scroll',debounceScroll)
+},[scrollY])
+const styleForScroll=scrollY > 70?{bg:'whiteAlpha.400',backdropFilter:'blur(25px)',transition:'0.3s ease-out'}:{}
   return (
     <Flex
       zIndex={12}
       left={0}
       top={0}
-      bg={"whiteAlpha.400"}
-      backdropFilter={"blur(30px)"}
+      {...styleForScroll}
+      
       align={"center"}
       width={"100%"}
       pos={"fixed"}

@@ -24,12 +24,14 @@ import PageWrap from "@/app/components/PageWrap";
 import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
-import { Chain, useNetwork } from "wagmi";
+import { Chain, useAccount, useNetwork } from "wagmi";
+import NotConnected from "@/app/components/NotConnected";
 
 const MintPage = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [selectedChainName,setSelectedChainName]=useState('');
   const { chain,chains } = useNetwork();
+  const { isConnected } = useAccount();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -94,6 +96,9 @@ setSelectedChainName(chain?.name);
   return (
     <>
       <Navbar />
+      <NotConnected isConnected={isConnected}>
+
+
       <PageWrap>
         <Box
           mx={"auto"}
@@ -212,6 +217,8 @@ setSelectedChainName(chain?.name);
           </Box>
         </Box>
       </PageWrap>
+      </NotConnected>
+
         <Footer />
     </>
   );

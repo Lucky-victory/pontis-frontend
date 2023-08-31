@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { useChainModal } from "@rainbow-me/rainbowkit";
 import isEmpty from "just-is-empty";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector} from 'react-redux'
 import { Chain, useAccount, useConnect, useNetwork,useSwitchNetwork } from "wagmi";
@@ -37,7 +37,7 @@ const BridgePage = () => {
   const { address,isConnected } = useAccount();
   const [departureData,setDepartureData]=useState({})
   const [destinationData,setDestinationData]=useState({})
-  const [selectedDestinationChain,setSelectedDestinationChain]=useState(chain?.name);
+  const [selectedDestinationChain,setSelectedDestinationChain]=useState('');
   const [selectedDepartureChain,setSelectedDepartureChain]=useState(chain?.name);
 
 const dispatch=useDispatch()
@@ -61,6 +61,10 @@ const dispatch=useDispatch()
         const { value } = target;
       // setData((prev) => ({ ...prev, chainId:+value }));
     }
+
+    useEffect(()=>{
+setSelectedDepartureChain(chain?.name)
+    },[chain])
   return (
     <>
       <Navbar />
@@ -142,10 +146,9 @@ const dispatch=useDispatch()
                     bg={"gray.800"} 
                   >{selectedDestinationChain || 'Chain'}</MenuButton>
     <MenuList>
-      {chains.map((c,i)=>
-      
-        <MenuItem key={'destination-chain'+i} onClick={(evt)=>handleSelectedDestinationChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
-      )}
+      {chains.map((c,i)=>{
+      if(c?.id!==chain?.id) return <MenuItem key={'destination-chain'+i} onClick={(evt)=>handleSelectedDestinationChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
+})}
         
     </MenuList>
 </Menu>

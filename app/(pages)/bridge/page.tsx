@@ -33,18 +33,17 @@ import { Chain, useAccount, useConnect, useNetwork,useSwitchNetwork } from "wagm
 
 const BridgePage = () => {
   const { openChainModal } = useChainModal();
-  const { chain,chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const { address,isConnected } = useAccount();
-  const [departureData,setDepartureData]=useState({})
-  const [destinationData,setDestinationData]=useState({})
+  const [departureData,setDepartureData]=useState({chainId:null,address:''})
+  const [destinationData,setDestinationData]=useState({address:'',chainId:null})
   const [selectedDestinationChain,setSelectedDestinationChain]=useState('');
   const [selectedDepartureChain,setSelectedDepartureChain]=useState(chain?.name);
 
 const dispatch=useDispatch()
   const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
-  const handleOpenChainModal=(collection:any)=>{
-    openChainModal && openChainModal()
-  }
+
   console.log({address,isConnected,chains,chain});
   const handleDestinationAddressChange=(evt:ChangeEvent<HTMLInputElement>)=>{
 

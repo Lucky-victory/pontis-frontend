@@ -23,10 +23,17 @@ import PageWrap from "@/app/components/PageWrap";
 import { getJSONFromCID, pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
-import { Chain, useAccount, useNetwork } from "wagmi";
+import { Chain, useAccount, useContractWrite, useNetwork, usePrepareContractWrite } from "wagmi";
 import NotConnected from "@/app/components/NotConnected";
 
 const MintPage = () => {
+  // const { config } = usePrepareContractWrite({
+  //   address: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
+  //   abi: '',
+  //   functionName: 'feed',
+  // })
+  // const { data:writtenData, isLoading, isSuccess, write } = useContractWrite(config)
+ 
   const [files, setFiles] = useState<File[]>([]);
   const [selectedChainName,setSelectedChainName]=useState('');
   const { chain,chains } = useNetwork();

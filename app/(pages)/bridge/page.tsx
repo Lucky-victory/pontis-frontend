@@ -2,6 +2,7 @@
 import CollectionCards from "@/app/components/CollectionCards";
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import NotConnected from "@/app/components/NotConnected";
 import PageWrap from "@/app/components/PageWrap";
 import { removeCollection } from "@/app/state/slices";
 import { RootState } from "@/app/state/store";
@@ -23,27 +24,26 @@ import {
 } from "@chakra-ui/react";
 import { useChainModal } from "@rainbow-me/rainbowkit";
 import isEmpty from "just-is-empty";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector} from 'react-redux'
-import { Chain, useAccount, useNetwork,useSwitchNetwork } from "wagmi";
+import { Chain, useAccount, useConnect, useNetwork,useSwitchNetwork } from "wagmi";
 
 
 
 const BridgePage = () => {
   const { openChainModal } = useChainModal();
-  const { chain,chains } = useNetwork();
+  const { chain } = useNetwork();
+  const { chains } = useSwitchNetwork();
   const { address,isConnected } = useAccount();
-  const [departureData,setDepartureData]=useState({})
-  const [destinationData,setDestinationData]=useState({})
-  const [selectedDestinationChain,setSelectedDestinationChain]=useState(chain?.name);
+  const [departureData,setDepartureData]=useState({chainId:null,address:''})
+  const [destinationData,setDestinationData]=useState({address:'',chainId:null})
+  const [selectedDestinationChain,setSelectedDestinationChain]=useState('');
   const [selectedDepartureChain,setSelectedDepartureChain]=useState(chain?.name);
 
 const dispatch=useDispatch()
   const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
-  const handleOpenChainModal=(collection:any)=>{
-    openChainModal && openChainModal()
-  }
+
   console.log({address,isConnected,chains,chain});
   const handleDestinationAddressChange=(evt:ChangeEvent<HTMLInputElement>)=>{
 
@@ -60,9 +60,15 @@ const dispatch=useDispatch()
         const { value } = target;
       // setData((prev) => ({ ...prev, chainId:+value }));
     }
+
+    useEffect(()=>{
+setSelectedDepartureChain(chain?.name)
+    },[chain])
   return (
     <>
       <Navbar />
+    <NotConnected isConnected={isConnected}>
+
       <PageWrap>
         <Box mx={"auto"} mt={"90px"} maxW={"1350px"} mb={6}>
           <Flex px={{ base: 4, lg: 6 }} wrap={"wrap"} gap={6} mx={"auto"}>
@@ -139,10 +145,9 @@ const dispatch=useDispatch()
                     bg={"gray.800"} 
                   >{selectedDestinationChain || 'Chain'}</MenuButton>
     <MenuList>
-      {chains.map((c,i)=>
-      
-        <MenuItem key={'destination-chain'+i} onClick={(evt)=>handleSelectedDestinationChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
-      )}
+      {chains.map((c,i)=>{
+      if(c?.id!==chain?.id) return <MenuItem key={'destination-chain'+i} onClick={(evt)=>handleSelectedDestinationChain(evt,c)} name="chain" value={c?.id}>{c?.name}</MenuItem>
+})}
         
     </MenuList>
 </Menu>
@@ -223,6 +228,8 @@ fontSize={'xl'}
         </Box>
       </PageWrap>
       <Footer/>
+    </NotConnected>
+
     </>
   );
 };

@@ -1,11 +1,15 @@
 import { Box, Checkbox, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { useState,useEffect } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCollection, removeCollection } from "@/app/state/slices";
+import { RootState } from "@/app/state/store";
 
 const CollectionCard = ({ collection }: { collection: any }) => {
+  
+  const selectedCollections=useSelector<RootState,any[]>((state)=>state.bridgeCollection.data)
   const dispatch=useDispatch()
   const [isChecked, setIsChecked] = useState(false);
+  const [canDisable, setCanDisable] = useState(false);
   const handleCheck = (collection: any) => {
 const _isChecked=isChecked;
 if(_isChecked){
@@ -16,22 +20,28 @@ if(_isChecked){
     }
     setIsChecked(!_isChecked);
   };
-// useEffect(()=>{
+useEffect(()=>{
+selectedCollections.length >= 1 ?
+  setCanDisable(true):setCanDisable(false)
 
-// },[dispatch,isChecked])
-  
+},[selectedCollections])
+  const stylesWhenDisabled=!isChecked && canDisable? {cursor:'not-allowed',pointerEvents:'none', opacity:0.5}: {cursor:"pointer"}
   return (
+    //@ts-ignore
     <Flex
       onClickCapture={() => handleCheck(collection)}
-      cursor={"pointer"}
+      // cursor={"pointer"}
       border={"4px"}
+      {...stylesWhenDisabled}
       borderColor={isChecked ? "brand.600" : "transparent"}
       pos={"relative"}
+      
       direction={"column"}
       p={3}
       boxShadow={"md"}
       borderRadius={"2xl"}
       bg={"black"}
+      
     >
       <Checkbox
         onChange={() => handleCheck(collection)}

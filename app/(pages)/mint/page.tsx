@@ -6,7 +6,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Select,
   Text,
   Textarea,useToast,Menu,MenuItem,MenuButton,MenuList
 } from "@chakra-ui/react";
@@ -21,19 +20,28 @@ import {
   MouseEvent,
 } from "react";
 import PageWrap from "@/app/components/PageWrap";
-import { pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
+import { getJSONFromCID, pushImgToStorage, putJSONandGetHash } from "@/app/lib/utils";
 
 import isEmpty from "just-is-empty";
-import { Chain, useNetwork } from "wagmi";
+import { Chain, useAccount, useContractWrite, useNetwork, usePrepareContractWrite } from "wagmi";
+import NotConnected from "@/app/components/NotConnected";
 
 const MintPage = () => {
+  // const { config } = usePrepareContractWrite({
+  //   address: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
+  //   abi: '',
+  //   functionName: 'feed',
+  // })
+  // const { data:writtenData, isLoading, isSuccess, write } = useContractWrite(config)
+ 
   const [files, setFiles] = useState<File[]>([]);
   const [selectedChainName,setSelectedChainName]=useState('');
   const { chain,chains } = useNetwork();
+  const { isConnected } = useAccount();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasImage, setHasImage] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const toast=useToast({duration:3000,position:'top'})
+  const toast=useToast({duration:3000,position:'top',})
   const initialData:{chainId:number|null;image:string;name:string;description?:string} = {
     image: "",
     name: "",
@@ -41,8 +49,8 @@ const MintPage = () => {
     chainId: null,
   };
   const [data, setData] = useState(initialData);
-  const onUploadChange = (hasImage: boolean, files: File[]) => {
-    setHasImage(hasImage);
+  const onUploadChange = (_hasImage: boolean, files: File[]) => {
+    setHasImage(_hasImage);
     setFiles(files);
   };
   async function handleFormSubmit(evt: FormEvent<HTMLDivElement>) {
@@ -50,18 +58,22 @@ const MintPage = () => {
 
     try {
       setIsSubmitting(true);
-      // upload the image first and get it's CID
+      // // upload the image first and get it's CID
       const imageCid = await pushImgToStorage(files[0]);
       const newData = { ...data, image: `https://${imageCid}.ipfs.w3s.link` };
       console.log({ imageCid, newData });
 
       const cid = await putJSONandGetHash(newData);
       console.log({ details: cid });
+
+      // const response = await getJSONFromCID('bafkreibtojt5ockm7nfxlxgm62d57o6qmxwnz3v5rxr4dg2qv5exge25fq')
+      // console.log({ response});
       setData(initialData);
       setIsSubmitting(false);
-      // toast({})
+      toast({title:'NFT created successfully',status:'success'})
     } catch (error) {
       setIsSubmitting(false);
+      toast({title:'An error occurred, please try again',status:'error'})
       console.log("error", error);
     }
   }
@@ -71,7 +83,7 @@ const MintPage = () => {
     >,
   ) {
     const target = evt.target;
-    //@ts-ignore
+   
     const { name, value } = target;
 
     setData((prev) => ({ ...prev, [name]: name==='chain'?+value: value }));
@@ -84,16 +96,19 @@ setSelectedChainName(chain?.name);
   setData((prev) => ({ ...prev, chainId:+value }));
 }
   useEffect(() => {
-    if (isEmpty(data["chainId"]) || isEmpty(data["name"]) || !hasImage) {
-      setIsValid(false);
-    } else {
+    if ((data.chainId!==null && !isEmpty(data.chainId+'')) && !isEmpty(data.name) && hasImage) {
       setIsValid(true);
+    } else {
+      setIsValid(false);
     }
-  }, [data.chainId, data.name, hasImage]);
+  }, [data.chainId, data.name, hasImage,files]);
 
   return (
     <>
       <Navbar />
+      <NotConnected isConnected={isConnected}>
+
+
       <PageWrap>
         <Box
           mx={"auto"}
@@ -212,6 +227,8 @@ setSelectedChainName(chain?.name);
           </Box>
         </Box>
       </PageWrap>
+      </NotConnected>
+
         <Footer />
     </>
   );
